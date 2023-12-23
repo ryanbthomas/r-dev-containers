@@ -1,0 +1,17 @@
+version: '3.8'
+
+services:
+  vscode:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    network_mode: host
+    volumes:
+      - ../..:/workspaces:cached
+      - ${RENV_PATHS_CACHE_HOST}:${RENV_PATHS_CACHE}:cached
+    cap_add:
+      - SYS_PTRACE
+    security_opt:
+      - seccomp:unconfined
+    command: sleep infinity
+    env_file: devcontainer.env
